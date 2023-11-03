@@ -1,6 +1,6 @@
 ### This repository is my re-implementation of FastSLAM with Pioneer robot and SICK lidar in CoppeliaSim(V-REP)
 * My implemantaion is the combine of 2 repository [1](https://github.com/andriusbern/slam) and [2](https://github.com/kunnnnethan/FastSLAM),
-where I used room scenerio from [1] and modify the scrip to use ROS interface instead of V-rep python API, I used FastSLAM for grid map from [2] using data from V-rep instead of modeling data.
+where I used room scenerio from [1] and modify the scrip to use ROS interface instead of V-rep python API, I used FastSLAM for grid mapping from [2] using data from V-rep instead of modeling data.
 #### [3/11/2023] First commit
 * Using map resolution 150x150 ( 1 pixel represent 1 dm) to reduce computation complexity
 * Sampling 54 among 270 sensor of SICK TIM310
@@ -9,7 +9,7 @@ where I used room scenerio from [1] and modify the scrip to use ROS interface in
 * Fix wrong data transformation
 * Convert from velocity signal to odometry
 ##### CoppeliaSim simulation
-![alt text](https://github.com/phuongboi/fastslam-with-coppeliasim/blob/main/result/recording_2023_11_03-20_28-15.gif) 
+![alt text](https://github.com/phuongboi/fastslam-with-coppeliasim/blob/main/result/recording_2023_11_03-20_28-15.gif)
 ##### Output Map
 ![alt text](https://github.com/phuongboi/fastslam-with-coppeliasim/blob/main/result/map.gif)   
 ### Requirements
