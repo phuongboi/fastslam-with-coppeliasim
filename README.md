@@ -8,10 +8,10 @@ where I used room scenerio from [1] and modify the scrip to use ROS interface in
 #### TODO
 * Fix wrong data transformation
 * Convert from velocity signal to odometry
-
+##### CoppeliaSim simulation
+![alt text](https://github.com/phuongboi/fastslam-with-coppeliasim/blob/main/result/recording_2023_11_03-20_28-15.gif) 
 ##### Output Map
-![alt text](https://github.com/phuongboi/fastslam-with-coppeliasim/blob/main/result/map.gif)  
-
+![alt text](https://github.com/phuongboi/fastslam-with-coppeliasim/blob/main/result/map.gif)   
 ### Requirements
 * CoppeliaSim v4.5.1 linux
 * ROS Noetic, rospy
