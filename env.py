@@ -22,22 +22,22 @@ class VrepEnvironment():
             self.left_pub.publish(self.v_forward-self.v_turn)
             self.right_pub.publish(self.v_forward+self.v_turn)
             self.rate.sleep()
-            # self.left_pub.publish(0)
-            # self.right_pub.publish(0)
+            self.left_pub.publish(0)
+            self.right_pub.publish(0)
             #self.rate.sleep()
         elif action==1:
             self.left_pub.publish(self.v_forward)
             self.right_pub.publish(self.v_forward)
             self.rate.sleep()
-            # self.left_pub.publish(0)
-            # self.right_pub.publish(0)
+            self.left_pub.publish(0)
+            self.right_pub.publish(0)
             #self.rate.sleep()
         elif action==2:
             self.left_pub.publish(self.v_forward+self.v_turn)
             self.right_pub.publish(self.v_forward-self.v_turn)
             self.rate.sleep()
-            # self.left_pub.publish(0)
-            # self.right_pub.publish(0)
+            self.left_pub.publish(0)
+            self.right_pub.publish(0)
             #self.rate.sleep()
 
         elif action==3:

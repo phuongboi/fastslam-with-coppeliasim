@@ -2,7 +2,7 @@
 * My implemantaion is the combine of 2 repository [1](https://github.com/andriusbern/slam) and [2](https://github.com/kunnnnethan/FastSLAM),
 where I used room scenerio from [1] and modify the scrip to use ROS interface instead of V-rep python API, I used FastSLAM for grid mapping from [2] using data from V-rep instead of modeling data.
 #### [3/11/2023] First commit
-* Using map resolution 150x150 ( 1 pixel represent 1 dm) to reduce computation complexity
+* Using map resolution 150x150 (grid resolution is 10cm) to reduce computation complexity
 * Sampling 54 among 270 sensor of SICK TIM310
 * Using real odometry information
 #### TODO

@@ -185,7 +185,7 @@ def visualize_opencv(robot, particles, best_particle, radar_list, step, title, o
     concated_img = np.concatenate((img, img1), axis=1)
     print(concated_img.shape)
     cv2.imshow("slam", concated_img)
-    recorder.write((concated_img*255).astype(np.uint8))
+    recorder.write(cv2.cvtColor((concated_img*255).astype(np.uint8), cv2.COLOR_RGB2BGR))
 
 
     # if cv2.waitKey(25) & 0xFF == ord('q'):

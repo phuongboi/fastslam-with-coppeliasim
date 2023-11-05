@@ -18,9 +18,10 @@ from world import World
 from motion_model import MotionModel
 from measurement_model import MeasurementModel
 from utils import absolute2relative, relative2absolute, degree2radian, visualize, visualize_opencv
+#import keyboard
 if __name__ == "__main__":
 
-    env = VrepEnvironment(speed=1, turn=0.5, rate=1)
+    env = VrepEnvironment(speed=1, turn=0.5, rate=100)
     RotationMatrix = np.array([[0, -1, 0], [-1, 0, 0], [0, 0, -1]])
     scale_factor = 10
     floor_w = floor_h = 15*scale_factor
@@ -38,8 +39,7 @@ if __name__ == "__main__":
     # create an unknow map
     init_grid = np.ones(SCENE['grid_size']) * ROBOT['prior_prob']
 
-
-    # inint robot
+    # init robot
     (x, y, theta) = SCENE['R_init']
     R = Robot(x, y, theta, init_grid, ROBOT, sense_noise=3.0)
     prev_odo = curr_odo = R.get_state()
@@ -67,11 +67,24 @@ if __name__ == "__main__":
     while True:
         #time.sleep(1)
         action = np.random.choice(2)
+        #event = keyboard.read_event()
         #R.action2move(action, env.v_forward, env.v_turn, env.rate)
         curr_odo = R.get_state()
         R.update_trajectory()
+
+        if input("Please enter a string:\n") == "w":
+            print("moving forward")
+            action = 1
+        elif input("Please enter a string:\n") == "a":
+            print("turning left")
+            action = 0
+
+        elif input("Please enter a string:\n") == "d":
+            print("turning right")
+            action = 2
+
         print("take action", action)
-        transform, lidar_data = env.step(action=0)
+        transform, lidar_data = env.step(action=action)
 
         pos = transform.translation
         qua = transform.rotation

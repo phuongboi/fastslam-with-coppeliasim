@@ -31,7 +31,7 @@ if __name__ == "__main__":
         action = np.random.choice(2)
 
 
-        transform, lidar_data = env.step(action=3)
+        transform, lidar_data = env.step(action=1)
 
         p = transform.translation
         #print(p)
