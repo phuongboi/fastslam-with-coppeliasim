@@ -7,7 +7,7 @@ where I used room scenerio from [1] and modify the scrip to use ROS interface in
 * Sampling 54 among 270 sensor of SICK TIM310
 * Using real odometry information
 #### TODO
-* Fix wrong data transformation
+* ~~Fix wrong data transformation~~
 * Convert from velocity signal to odometry
 ##### CoppeliaSim simulation
 ![alt text](https://github.com/phuongboi/fastslam-with-coppeliasim/blob/main/result/2024-03-07-11-03-14.png)
