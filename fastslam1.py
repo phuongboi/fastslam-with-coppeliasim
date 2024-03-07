@@ -64,7 +64,8 @@ if __name__ == "__main__":
     fps = 10
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     recorder = cv2.VideoWriter("result/map.mp4", fourcc, fps, (w, h))
-    while True:
+    #while True:
+    for i in range(100):
         #time.sleep(1)
         action = np.random.choice(2)
         #event = keyboard.read_event()
@@ -72,16 +73,16 @@ if __name__ == "__main__":
         curr_odo = R.get_state()
         R.update_trajectory()
 
-        if input("Please enter a string:\n") == "w":
-            print("moving forward")
-            action = 1
-        elif input("Please enter a string:\n") == "a":
-            print("turning left")
-            action = 0
-
-        elif input("Please enter a string:\n") == "d":
-            print("turning right")
-            action = 2
+        # if input("Please enter a string:\n") == "w":
+        #     print("moving forward")
+        #     action = 1
+        # elif input("Please enter a string:\n") == "a":
+        #     print("turning left")
+        #     action = 0
+        #
+        # elif input("Please enter a string:\n") == "d":
+        #     print("turning right")
+        #     action = 2
 
         print("take action", action)
         transform, lidar_data = env.step(action=action)
@@ -89,13 +90,14 @@ if __name__ == "__main__":
         pos = transform.translation
         qua = transform.rotation
         robot_pos = np.array((pos.x, pos.y, pos.z))*scale_factor
-        robot_pos = RotationMatrix @ robot_pos + 75
+        #robot_pos = RotationMatrix @ robot_pos + 75
+        robot_pos = robot_pos + 75
         robot_pos_xy = (int(robot_pos[0]), int(robot_pos[1]))
         # robot_theta_w = 2 *np.arcsin(qua.z)
         # robot_theta = -2 *np.arcsin(qua.z) - np.pi/2
-        robot_theta_w = wrapAngle(2 *np.arcsin(qua.z))
-        robot_theta = wrapAngle(-2 *np.arcsin(qua.z) - np.pi/2)
-        R.x, R.y, R.theta = (int(robot_pos[0]), int(robot_pos[1]), robot_theta)
+        robot_theta_w =qua.z
+        #robot_theta = -2 *np.arcsin(qua.z) - np.pi/2
+        R.x, R.y, R.theta = (int(robot_pos[0]), int(robot_pos[1]), robot_theta_w)
 
         # print("robot_pos", robot_pos_xy)
         # print("theta", robot_theta)

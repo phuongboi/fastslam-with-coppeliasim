@@ -120,7 +120,8 @@ class Robot(object):
             x1, y1 = radar_src[:, i]
             end_ray_wcoord = relative2absolute((lidar_data[5*i][0], lidar_data[5*i][1]), robot_state)
             end_ray = np.array((end_ray_wcoord[0], end_ray_wcoord[1], 0))*self.scale_factor
-            end_ray =self.RotationMatrix @ end_ray + 75
+            #end_ray =self.RotationMatrix @ end_ray + 75
+            end_ray = end_ray + 75
             x2, y2 = (int(end_ray[0]), int(end_ray[1]))
             #x2, y2 = radar_dest[:, i]
             beams[i] = bresenham(x1, y1, x2, y2, self.grid_size[0], self.grid_size[1])
@@ -161,15 +162,15 @@ class Robot(object):
         for i, beam in enumerate(beams):
             dist = np.linalg.norm(beam - loc, axis=1)
             beam = np.array(beam)
-            robot_pos_w = ((np.array((self.x, self.y, 0)) - 75) @ self.RotationMatrix.T) / self.scale_factor
-            robot_theta_w = - (self.theta + np.pi/2)
-            robot_state_1 = np.array((robot_pos_w[0], robot_pos_w[1], robot_theta_w))
+            # robot_pos_w = ((np.array((self.x, self.y, 0)) - 75) / self.scale_factor
+            # robot_theta_w = - (self.theta + np.pi/2)
+            # robot_state_1 = np.array((robot_pos_w[0], robot_pos_w[1], robot_theta_w))
             # print("robot state", robot_state)
             # print("robot state reverse", robot_state_1)
             #print(robot_state)
             end_ray_wcoord = relative2absolute((lidar_data[i][0], lidar_data[i][1]), robot_state)
             end_ray = np.array((end_ray_wcoord[0], end_ray_wcoord[1], 0))*self.scale_factor
-            end_ray =self.RotationMatrix @ end_ray + 75
+            end_ray =end_ray + 75
             #end_ray_xy = (int(end_ray[0]), int(end_ray[1]))
             x2, y2 = (int(end_ray[0]), int(end_ray[1]))
 

@@ -63,9 +63,9 @@ function sysCall_init()
         leftMotorSub=simROS.subscribe('/leftMotorSpeed','std_msgs/Float32','setLeftMotorVelocity_cb')
         rightMotorSub=simROS.subscribe('/rightMotorSpeed','std_msgs/Float32','setRightMotorVelocity_cb')
     end
-   
+
 end
--- Control 2 wheel 
+-- Control 2 wheel
 -- function sysCall_actuation()
 --     for i=1,16,1 do
 --         res,dist=sim.readProximitySensor(usensors[i])
@@ -78,30 +78,30 @@ end
 --             detect[i]=0
 --         end
 --     end
-    
+
 --     vLeft=v0
 --     vRight=v0
-    
+
 --     for i=1,16,1 do
 --         vLeft=vLeft+braitenbergL[i]*detect[i]
 --         vRight=vRight+braitenbergR[i]*detect[i]
 --     end
-    
+
 --     sim.setJointTargetVelocity(motorLeft,vLeft)
 --     sim.setJointTargetVelocity(motorRight,vRight)
--- end 
+-- end
 
 function sysCall_sensing()
 
     measuredData={}
-    
+
     if notFirstHere and simROS then
         -- We skip the very first reading
         sim.addDrawingObjectItem(lines,nil)
         showLines=sim.getScriptSimulationParameter(sim.handle_self,'showLaserSegments')
         r,t1,u1=sim.readVisionSensor(visionSensor1Handle)
         r,t2,u2=sim.readVisionSensor(visionSensor2Handle)
-    
+
         m1=sim.getObjectMatrix(visionSensor1Handle,-1)
         m01=simGetInvertedMatrix(sim.getObjectMatrix(sensorRefHandle,-1))
         m01=sim.multiplyMatrices(m01,m1)
@@ -170,18 +170,20 @@ function sysCall_sensing()
         --sim.setStringSignal("measuredDataAtThisTime",data)
         simROS.publish(scanPub,{data=measuredData})
         p=sim.getObjectPosition(robotHandle,-1)
-        o=sim.getObjectQuaternion(robotHandle,-1)
-        simROS.publish(transformPub, {translation={x=p[1],y=p[2],z=p[3]},rotation={x=o[1],y=o[2],z=o[3],w=o[4]}})
+        --o=sim.getObjectQuaternion(robotHandle,-1)
+        o = sim.getObjectOrientation(robotHandle, -1)
+        --simROS.publish(transformPub, {translation={x=p[1],y=p[2],z=p[3]},rotation={x=o[1],y=o[2],z=o[3],w=o[4]}})
+        simROS.publish(transformPub, {translation={x=p[1],y=p[2],z=p[3]},rotation={x=o[1],y=o[2],z=o[3]}})
     end
     notFirstHere=true
-    
+
     -- measuredData now contains all the points that are closer than the sensor range
     -- For each point there is the x, y and z coordinate (i.e. 3 number for each point)
     -- Coordinates are expressed relative to the sensor frame.
     -- You can access this data from outside via various mechanisms. The best is to first
     -- pack the data, then to send it as a string. For example:
     --
-    -- 
+    --
     -- data=sim.packFloatTable(measuredData)
     -- sim.setStringSignal("measuredDataAtThisTime",data)
     --
@@ -195,7 +197,7 @@ function sysCall_sensing()
     -- Also, if you send the data via string signals, if you you cannot read the data in each simulation
     -- step, then always append the data to an already existing signal data, e.g.
     --
-    -- 
+    --
     -- data=sim.packFloatTable(measuredData)
     -- existingData=sim.getStringSignal("measuredDataAtThisTime")
     -- if existingData then
@@ -213,4 +215,4 @@ function sysCall_cleanup()
         simROS.shutdownSubscriber(leftMotorSub)
         simROS.shutdownSubscriber(rightMotorSub)
     end
-end 
+end
